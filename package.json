@@ -10,7 +10,7 @@
     "@typechain/ethers-v6": "^0.4.0",
     "@typechain/hardhat": "^8.0.0",
     "chai": "^4.2.0",
-    "ethers": "^5.7.2",
+    "ethers": "5.5.3",
     "hardhat": "^2.14.0",
     "hardhat-deploy": "^0.11.36",
     "hardhat-gas-reporter": "^1.0.8",
@@ -21,14 +21,13 @@
     "@nomiclabs/hardhat-etherscan": "^3.1.7",
     "@nomiclabs/hardhat-waffle": "^2.0.6",
     "dotenv": "^16.3.1"
-  
-},
-"scripts": {
-  "test": "hardhat test",
-  "test:staging": "hardhat test --network sepolia",
-  "lint": "solhint 'contracts/**/*.sol'",
-  "lint:fix": "solhint 'contracts/**/*.sol' --fix",
-  "format": "prettier --write .",
-  "coverage": "hardhat coverage"
-}
+  },
+  "scripts": {
+    "test": "hardhat test",
+    "test:staging": "hardhat test --network sepolia",
+    "lint": "solhint 'contracts/**/*.sol'",
+    "lint:fix": "solhint 'contracts/**/*.sol' --fix",
+    "format": "prettier --write .",
+    "coverage": "hardhat coverage"
+  }
 }
