@@ -1,5 +1,5 @@
 const { network } = require("hardhat")
-const { networkConfig, developmentChains } = require("../helper-hardhat-config")
+const { networkConfig, developmentChain } = require("../helper-hardhat-config")
 const { verify } = require("../utils/verify")
 require("dotenv").config()
 
@@ -26,7 +26,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     log(`FundMe deployed at ${fundMe.address}`)
 
     if (
-        !developmentChains.includes(network.name) &&
+        !developmentChain.includes(network.name) &&
         process.env.ETHERSCAN_API_KEY
     ) {
         await verify(fundMe.address, [ethUsdPriceFeedAddress])
