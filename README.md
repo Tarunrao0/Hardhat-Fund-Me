@@ -42,4 +42,4 @@ yarn hardhat --tags mocks
 
 # Socials
 
-twitter 🐤: https://twitter.com/home?logout=1692550580118
+twitter 🐤: https://twitter.com/TarunRao00
