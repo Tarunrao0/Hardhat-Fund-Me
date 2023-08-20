@@ -1,18 +1,19 @@
 const { assert, expect } = require("chai")
 const { network, deployments, ethers } = require("hardhat")
-const { developmentChain } = require("../../helper-hardhat-config")
+const { developmentChains } = require("../../helper-hardhat-config")
 
-!developmentChain.includes(network.name)
+!developmentChains.includes(network.name)
     ? describe.skip
     : describe("FundMe", function () {
           let fundMe
           let mockV3Aggregator
           let deployer
-          const sendValue = ethers.parseEther("1")
+          const sendValue = ethers.utils.parseEther("1")
           beforeEach(async () => {
-              
+              // const accounts = await ethers.getSigners()
+              // deployer = accounts[0]
               deployer = (await getNamedAccounts()).deployer
-              await deployments.fixture("all")
+              await deployments.fixture(["all"])
               fundMe = await ethers.getContract("FundMe", deployer)
               mockV3Aggregator = await ethers.getContract(
                   "MockV3Aggregator",
@@ -28,13 +29,15 @@ const { developmentChain } = require("../../helper-hardhat-config")
           })
 
           describe("fund", function () {
-              
+              // https://ethereum-waffle.readthedocs.io/en/latest/matchers.html
+              // could also do assert.fail
               it("Fails if you don't send enough ETH", async () => {
                   await expect(fundMe.fund()).to.be.revertedWith(
                       "You need to spend more ETH!"
                   )
               })
-          
+              // we could be even more precise here by making sure exactly $50 works
+              // but this is good enough for now
               it("Updates the amount funded data structure", async () => {
                   await fundMe.fund({ value: sendValue })
                   const response = await fundMe.getAddressToAmountFunded(
@@ -72,7 +75,7 @@ const { developmentChain } = require("../../helper-hardhat-config")
                       await fundMe.provider.getBalance(deployer)
 
                   // Assert
-                  
+                  // Maybe clean up to understand the testing
                   assert.equal(endingFundMeBalance, 0)
                   assert.equal(
                       startingFundMeBalance
@@ -81,7 +84,8 @@ const { developmentChain } = require("../../helper-hardhat-config")
                       endingDeployerBalance.add(gasCost).toString()
                   )
               })
-            
+              // this test is overloaded. Ideally we'd split it into multiple tests
+              // but for simplicity we left it as one
               it("is allows us to withdraw with multiple funders", async () => {
                   // Arrange
                   const accounts = await ethers.getSigners()
@@ -98,7 +102,8 @@ const { developmentChain } = require("../../helper-hardhat-config")
 
                   // Act
                   const transactionResponse = await fundMe.cheaperWithdraw()
-                  
+                  // Let's comapre gas costs :)
+                  // const transactionResponse = await fundMe.withdraw()
                   const transactionReceipt = await transactionResponse.wait()
                   const { gasUsed, effectiveGasPrice } = transactionReceipt
                   const withdrawGasCost = gasUsed.mul(effectiveGasPrice)

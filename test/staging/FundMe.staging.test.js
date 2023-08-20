@@ -1,13 +1,13 @@
 const { assert } = require("chai")
 const { network, ethers, getNamedAccounts } = require("hardhat")
-const { developmentChain } = require("../../helper-hardhat-config")
+const { developmentChains } = require("../../helper-hardhat-config")
 
-developmentChain.includes(network.name)
+developmentChains.includes(network.name)
     ? describe.skip
     : describe("FundMe Staging Tests", function () {
           let deployer
           let fundMe
-          const sendValue = ethers.parseEther("0.1")
+          const sendValue = ethers.utils.parseEther("0.1")
           beforeEach(async () => {
               deployer = (await getNamedAccounts()).deployer
               fundMe = await ethers.getContract("FundMe", deployer)
