@@ -8,34 +8,37 @@ It is deployed to the sepolia testnet
 
 Try running some of the following tasks:
 
+
+to know the commands available
+
 ```shell
 yarn hardhat
 ```
-to know the commands available 
 
-
-```shell
-yarn hardhat deploy --network sepolia
-```
 to deploy the script to a testnet (sepolia)
 
 ```shell
-yarn test
+yarn hardhat deploy --network sepolia
 ```
 
 to check the functionality of the test for the contracts
 
 ```shell
-yarn coverage
+yarn test
 ```
 
 to check how much the test covers the smart contract
 
 ```shell
-yarn hardhat --tags mocks
+yarn coverage
 ```
 
 to run the program locally on your computer
+
+```shell
+yarn hardhat --tags mocks
+```
+
 
 # Socials
 
