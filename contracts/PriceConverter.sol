@@ -14,9 +14,6 @@ library PriceConverter {
     return uint256(answer * 10000000000);
   }
 
-  // 1000000000
-  // call it get fiatConversionRate, since it assumes something about decimals
-  // It wouldn't work for every aggregator
   function getConversionRate(uint256 ethAmount, AggregatorV3Interface priceFeed)
     internal
     view
